@@ -1,13 +1,11 @@
+package fr.isen.projet.product_availability.resources;
 
-package fr.isen.projet.product_availability.resource;
+import fr.isen.projet.product_availability.interfaces.models.Product;
+import fr.isen.projet.product_availability.interfaces.services.ProductService;
 
-import fr.isen.projet.product_availability.entity.Product;
-import fr.isen.projet.product_availability.service.ProductService;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/products")
@@ -15,38 +13,57 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
-    @Inject
-    ProductService productService;
+    private final ProductService productService;
 
-    @GET
-    public List<Product> getAllProducts() {
-        return productService.getAllProduct();
+    public ProductResource(ProductService productService) {
+        this.productService = productService;
     }
 
     @GET
     @Path("/{id}")
-    public Product getProductById(@PathParam("id") int id) {
-        return productService.getOneProduct(id);
+    public Response getOneProduct(@PathParam("id") String id_product) {
+        Product product = productService.getOneProduct(id_product);
+        if (product != null) {
+            return Response.ok(product).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity("Product not found with ID: " + id_product).build();
+    }
+
+    @GET
+    public Response getAllProducts() {
+        List<Product> products = productService.getAllProduct();
+        return Response.ok(products).build();
     }
 
     @POST
     public Response addProduct(Product product) {
-        int result = productService.addProduct(product);
-        return Response.status(Response.Status.CREATED).entity(result).build();
+        if (product == null || product.id_product == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid product data").build();
+        }
+        String id = productService.addProduct(product);
+        return Response.status(Response.Status.CREATED).entity("Product created with ID: " + id).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateProduct(@PathParam("id") int id, Product product) {
-        product.setIdProduct(id);
+    public Response updateProduct(@PathParam("id") String id_product, Product product) {
+        Product existingProduct = productService.getOneProduct(id_product);
+        if (existingProduct == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Product not found with ID: " + id_product).build();
+        }
+        product.id_product = id_product; // Ensure the ID is consistent
         productService.updateProduct(product);
-        return Response.ok().build();
+        return Response.ok("Product updated successfully").build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response removeProduct(@PathParam("id") int id) {
-        productService.removeProduct(id);
-        return Response.noContent().build();
+    public Response removeProduct(@PathParam("id") String id_product) {
+        Product existingProduct = productService.getOneProduct(id_product);
+        if (existingProduct == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Product not found with ID: " + id_product).build();
+        }
+        productService.removeProduct(id_product);
+        return Response.ok("Product deleted successfully").build();
     }
 }

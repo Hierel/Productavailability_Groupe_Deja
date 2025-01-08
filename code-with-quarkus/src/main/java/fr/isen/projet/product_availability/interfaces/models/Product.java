@@ -1,5 +1,6 @@
 package fr.isen.projet.product_availability.interfaces.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import fr.isen.projet.product_availability.interfaces.models.enums.STATE_PRODUCT;
 
@@ -10,7 +11,7 @@ public class Product {
 //begin of modifiable zone(Javadoc).......C/b86ca1a9-647f-4209-8cb1-5da7440b9848
 
 //end of modifiable zone(Javadoc).........E/b86ca1a9-647f-4209-8cb1-5da7440b9848
-    public int id_product;
+    public String id_product;
 
 //begin of modifiable zone(Javadoc).......C/d9db6fbe-8a04-4b8a-b2eb-85ddaf659677
 
@@ -30,7 +31,7 @@ public class Product {
 //begin of modifiable zone(Javadoc).......C/b2726e0f-845f-4eb7-b2f9-798ef89ece57
 
 //end of modifiable zone(Javadoc).........E/b2726e0f-845f-4eb7-b2f9-798ef89ece57
-    public Subcategory subcategory;
+    public String id_subcategory;
 
 //begin of modifiable zone(Javadoc).......C/663c5156-d428-45aa-89e5-bda329554770
 
@@ -40,7 +41,7 @@ public class Product {
 //begin of modifiable zone(Javadoc).......C/7f904ccc-9c83-46de-90fa-16ca40fd6665
 
 //end of modifiable zone(Javadoc).........E/7f904ccc-9c83-46de-90fa-16ca40fd6665
-    public int id_provider;
+    public String id_provider;
 
 //begin of modifiable zone(Javadoc).......C/bdbe4a1c-c944-406a-988a-f608ae66d758
 
@@ -50,11 +51,14 @@ public class Product {
 //begin of modifiable zone(Javadoc).......C/fb7bf0e0-2f50-4b3c-a373-b0c3fd970aba
 
 //end of modifiable zone(Javadoc).........E/fb7bf0e0-2f50-4b3c-a373-b0c3fd970aba
-    public Date date_creation;
+    public Date date_created;
 
 //begin of modifiable zone(Javadoc).......C/884b6090-2272-4ac7-a13c-443b4cd231a8
 
 //end of modifiable zone(Javadoc).........E/884b6090-2272-4ac7-a13c-443b4cd231a8
     public Date date_updated;
+
+    public boolean bDelete;
+
 
 }

@@ -10,7 +10,7 @@ public interface ProductService {
 //begin of modifiable zone(Javadoc).......C/f7de80da-cf6a-4bf2-92d1-52de2e5d18fe
 
 //end of modifiable zone(Javadoc).........E/f7de80da-cf6a-4bf2-92d1-52de2e5d18fe
-    Product getOneProduct(final int id_product);
+    Product getOneProduct(final String id_product);
 
 //begin of modifiable zone(Javadoc).......C/f9cf77da-da6e-4d18-a9c3-4d9037e526fa
 
@@ -25,11 +25,11 @@ public interface ProductService {
 //begin of modifiable zone(Javadoc).......C/47cc45b9-5858-4eed-b791-fd60d6d1bc9f
 
 //end of modifiable zone(Javadoc).........E/47cc45b9-5858-4eed-b791-fd60d6d1bc9f
-    void removeProduct(final int id_product);
+    void removeProduct(final String id_product);
 
 //begin of modifiable zone(Javadoc).......C/30c609db-a93a-49da-9c2a-afc2f3b4666a
 
 //end of modifiable zone(Javadoc).........E/30c609db-a93a-49da-9c2a-afc2f3b4666a
-    int addProduct(final Product product);
+    String addProduct(final Product product);
 
 }
